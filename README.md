@@ -28,6 +28,21 @@ Type what you want built on the first screen and press *Plan it*. Scroll down fo
 | --- | --- |
 | ![Diff review](docs/screenshots/review.png) | ![Agent editor](docs/screenshots/agents.png) |
 
+## Live demo
+
+The hosted version runs entirely in your browser with simulated agents, so you can try the whole flow (plan, approve, watch the team, review the diff) without installing anything. To run real Claude Code agents on your own code, install it locally (below).
+
+### Deploy your own demo to Vercel
+
+Import the repo in Vercel and deploy. `vercel.json` already sets everything:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build:showcase` |
+| Output directory | `web/dist` |
+
+The showcase build swaps the local server for an in-browser simulation. The real app can't run on Vercel because it needs your Claude Code login, your files and git on your own machine.
+
 ## Requirements
 
 - **Node.js 18.17+**

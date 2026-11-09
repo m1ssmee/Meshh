@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
+import { REPO_URL } from '../api.js';
 
 const NAV = [
   { id: 'runs', label: 'Runs' },
@@ -63,10 +64,18 @@ export default function Landing({ project, agents, onStart, onOpen }) {
             </React.Fragment>
           ))}
         </nav>
-        <span className="l-project" title={project?.root}>
-          {project ? `${project.name}${project.git?.branch ? ` on ${project.git.branch}` : ''}` : ''}
-          {project?.demo ? ' (demo)' : ''}
-        </span>
+        {project?.showcase ? (
+          <span className="l-project">
+            <a className="l-link" href={`${REPO_URL}#quick-start`} target="_blank" rel="noreferrer">
+              Run it on your own projects
+            </a>
+          </span>
+        ) : (
+          <span className="l-project" title={project?.root}>
+            {project ? `${project.name}${project.git?.branch ? ` on ${project.git.branch}` : ''}` : ''}
+            {project?.demo ? ' (demo)' : ''}
+          </span>
+        )}
         <button className="l-link l-cta" onClick={() => onOpen('runs')}>
           Open workspace <span aria-hidden="true">↓</span>
         </button>
@@ -93,7 +102,11 @@ export default function Landing({ project, agents, onStart, onOpen }) {
           />
           <div className="l-form-foot">
             <span className="l-hint">
-              {error || blocker || 'Enter to send. The lead plans it, you approve, the team builds it. Nothing touches your files until you review.'}
+              {error ||
+                blocker ||
+                (project?.showcase
+                  ? 'Enter to send. This demo runs simulated agents in your browser, so try anything.'
+                  : 'Enter to send. The lead plans it, you approve, the team builds it. Nothing touches your files until you review.')}
             </span>
             <button className="l-link l-go" disabled={busy || !task.trim() || !!blocker}>
               {busy ? 'Planning…' : 'Plan it'} <span aria-hidden="true">→</span>

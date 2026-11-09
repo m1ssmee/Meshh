@@ -1916,3 +1916,10 @@ textarea::placeholder {
     flex-wrap: wrap;
   }
 }
+a.btn {
+  display: inline-block;
+  text-decoration: none;
+}
+a.l-link {
+  color: inherit;
+}

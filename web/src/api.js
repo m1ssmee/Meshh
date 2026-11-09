@@ -1,4 +1,10 @@
 import { useEffect, useRef } from 'react';
+import * as showcase from './demo/showcase.js';
+
+// `vite build --mode showcase` (used for Vercel) runs everything in the browser with
+// simulated agents. The normal build talks to the local Meshh server.
+export const SHOWCASE = import.meta.env.MODE === 'showcase';
+export const REPO_URL = 'https://github.com/m1ssmee/Meshh';
 
 async function req(method, url, body) {
   const res = await fetch(url, {
@@ -11,7 +17,7 @@ async function req(method, url, body) {
   return data;
 }
 
-export const api = {
+const serverApi = {
   project: () => req('GET', '/api/project'),
   gitInit: () => req('POST', '/api/project/git-init'),
   meta: () => req('GET', '/api/meta'),
@@ -44,11 +50,14 @@ export const api = {
   deleteRun: (id) => req('DELETE', `/api/runs/${id}`),
 };
 
+export const api = SHOWCASE ? showcase.api : serverApi;
+
 // Live updates from the server. Reconnects automatically.
 export function useLive(onMessage) {
   const handler = useRef(onMessage);
   handler.current = onMessage;
   useEffect(() => {
+    if (SHOWCASE) return showcase.subscribe((m) => handler.current(m));
     let ws;
     let closed = false;
     let retry;

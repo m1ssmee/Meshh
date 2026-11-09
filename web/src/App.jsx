@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { api, useLive } from './api.js';
+import { api, REPO_URL, useLive } from './api.js';
 import Landing from './components/Landing.jsx';
 import { ErrorNote } from './components/ui.jsx';
 import RunsView from './views/RunsView.jsx';
@@ -162,8 +162,17 @@ export default function App() {
           </div>
         </header>
 
-        {(needsGit || noClaude || (project && agents.length === 0)) && (
+        {(needsGit || noClaude || project?.showcase || (project && agents.length === 0)) && (
           <div className="setup">
+            {project?.showcase && (
+              <div className="setup-row">
+                <strong>You’re trying Meshh with simulated agents.</strong>
+                <span>Everything here runs in your browser and nothing touches real code. To run real Claude Code agents on your own projects, install Meshh on your computer.</span>
+                <a className="btn" href={`${REPO_URL}#quick-start`} target="_blank" rel="noreferrer">
+                  How to install
+                </a>
+              </div>
+            )}
             {noClaude && (
               <div className="setup-row">
                 <strong>Claude Code isn’t installed or isn’t on your PATH.</strong>

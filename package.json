@@ -19,7 +19,8 @@
     "start": "node bin/meshh.js",
     "demo": "node bin/meshh.js --demo",
     "test": "node --test",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "build:showcase": "vite build --mode showcase"
   },
   "engines": {
     "node": ">=18.17"
