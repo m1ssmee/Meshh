@@ -1,0 +1,52 @@
+{
+  "name": "meshh",
+  "version": "0.1.0",
+  "description": "A local web UI to run a team of Claude Code agents: one lead plans, specialist agents build in parallel, you review the diff.",
+  "type": "module",
+  "bin": {
+    "meshh": "bin/meshh.js"
+  },
+  "files": [
+    "bin",
+    "server",
+    "mock",
+    "web/dist"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,web \"node bin/meshh.js --no-open --port 4317\" \"vite\"",
+    "dev:demo": "concurrently -k -n server,web \"node bin/meshh.js --demo --no-open --port 4317\" \"vite\"",
+    "build": "vite build",
+    "start": "node bin/meshh.js",
+    "demo": "node bin/meshh.js --demo",
+    "test": "node --test",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18.17"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "agents",
+    "multi-agent",
+    "orchestrator",
+    "ai"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cross-spawn": "^7.0.6",
+    "express": "^4.21.2",
+    "open": "^10.1.0",
+    "ws": "^8.18.0",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/martian-mono": "^5.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.0.7"
+  }
+}
